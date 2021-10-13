@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { PropertiesService } from '../services/properties.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {PropertiesService} from '../services/properties.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private propertiesService: PropertiesService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.propertiesSubscription = this.propertiesService.propertiesSubject.subscribe(
@@ -26,14 +27,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getSoldValue(index) {
-    if(this.properties[index].sold){
+    if (this.properties[index].sold) {
       return 'red';
     } else {
       return 'green';
     }
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.propertiesSubscription.unsubscribe();
   }
 

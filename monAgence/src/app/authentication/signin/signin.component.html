@@ -7,11 +7,13 @@
       <form [formGroup]="signinForm" (ngSubmit)="onSubmitSigninForm()">
         <div class="mb-3">
           <label for="email" class="form-label">Adresse email</label>
-          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="example@example.com" formControlName="email">
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                 placeholder="example@example.com" formControlName="email">
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="Minimum 6 caractères" formControlName="password">
+          <input type="password" class="form-control" id="password" placeholder="Minimum 6 caractères"
+                 formControlName="password">
         </div>
         <button type="submit" class="btn btn-primary" [disabled]="signinForm.invalid">Connexion</button>
       </form>

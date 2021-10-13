@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { initializeApp } from 'firebase/app';
+import {Component} from '@angular/core';
+import {initializeApp} from 'firebase/app';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { initializeApp } from 'firebase/app';
 export class AppComponent {
   title = 'monAgence';
 
-  constructor(){
+  constructor() {
 
   }
 

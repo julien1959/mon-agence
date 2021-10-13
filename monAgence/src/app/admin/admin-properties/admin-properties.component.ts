@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { PropertiesService } from 'src/app/services/properties.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {Subscription} from 'rxjs';
+import {PropertiesService} from 'src/app/services/properties.service';
 import * as $ from 'jquery';
-import { Modal } from 'bootstrap';
-import { Property } from 'src/app/interfaces/property';
-
+import {Modal} from 'bootstrap';
+import {Property} from 'src/app/interfaces/property';
 
 
 @Component({
@@ -26,7 +25,8 @@ export class AdminPropertiesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private propertiesService: PropertiesService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.initPropertiesForm();
@@ -38,7 +38,7 @@ export class AdminPropertiesComponent implements OnInit {
     this.propertiesService.emitProperties();
   }
 
-  initPropertiesForm(){
+  initPropertiesForm() {
     this.propertiesForm = this.formBuilder.group({
       title: ['', Validators.required],    //Pour rendre le champ obligatoire
       category: ['', Validators.required],
@@ -51,7 +51,7 @@ export class AdminPropertiesComponent implements OnInit {
   }
 
   // Soumettre le formulaire
-  onSubmitPropertiesForm(){
+  onSubmitPropertiesForm() {
     const newProperty: Property = this.propertiesForm.value;
     if (this.editMode) {
       this.propertiesService.updateProperty(newProperty, this.indexToUpdate);
@@ -65,24 +65,24 @@ export class AdminPropertiesComponent implements OnInit {
   }
 
   // Réinitialiser le formulaire
-  resetForm(){
+  resetForm() {
     this.editMode = false;
     this.propertiesForm.reset();
   }
 
-  onDeleteProperty(index){
+  onDeleteProperty(index) {
     //$('#deletePropertyModal').modal('show'); // Pour ouvrir la modal après suppression(avec jquery)
     this.indexToRemove = index;
   }
 
-  onConfirmDeleteProperty(){
+  onConfirmDeleteProperty() {
     this.propertiesService.deleteProperty(this.indexToRemove);
     const modal = Modal.getInstance('#deletePropertyModal'); // Fermer la modal sans jquery
     modal.hide();
   }
 
   //Modification du bien
-  onEditProperty(property: Property){
+  onEditProperty(property: Property) {
     this.editMode = true;
     this.propertiesForm.get('title').setValue(property.title);
     this.propertiesForm.get('category').setValue(property.category);

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Property } from '../interfaces/property';
-import { getDatabase, ref, set } from "firebase/database";
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+import {Property} from '../interfaces/property';
+import {getDatabase, ref, set} from "firebase/database";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,8 @@ export class PropertiesService {
 
   propertiesSubject = new Subject<Property[]>();
 
-  constructor() { }
+  constructor() {
+  }
 
   emitProperties() {
     this.propertiesSubject.next(this.properties);
@@ -24,22 +25,22 @@ export class PropertiesService {
     //set(ref(db, 'properties/'), this.properties);
   }
 
-  getProperties(){
+  getProperties() {
 
   }
 
-  createProperty(property: Property){
+  createProperty(property: Property) {
     this.properties.push(property);
     this.writeUserData();
     this.emitProperties();
   }
 
-  deleteProperty(index){
+  deleteProperty(index) {
     this.properties.splice(index, 1);
     this.emitProperties();
   }
 
-  updateProperty(property: Property, index){
+  updateProperty(property: Property, index) {
     this.properties[index] = property;
     this.emitProperties();
   }

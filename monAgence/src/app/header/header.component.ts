@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 @Component({
   selector: 'app-header',
@@ -15,7 +15,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     const auth = getAuth();
@@ -30,7 +31,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  onSignOut(){
+  onSignOut() {
     this.authenticationService.signOutUser();
   }
 

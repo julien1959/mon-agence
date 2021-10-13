@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthenticationService} from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-signin',
@@ -16,26 +16,27 @@ export class SigninComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.initSigninForm();
   }
 
-  initSigninForm(){
+  initSigninForm() {
     this.signinForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  onSubmitSigninForm(){
+  onSubmitSigninForm() {
     const email = this.signinForm.get('email').value;
     const password = this.signinForm.get('password').value;
     this.authenticationService.signInUser(email, password).then(
       (userCredential) => {
         console.log(userCredential);
-        this.router.navigate(['/admin','dashboard']); //admin/dashboard
+        this.router.navigate(['/admin', 'dashboard']); //admin/dashboard
       }
     ).catch(
       (error) => {

@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {Injectable} from '@angular/core';
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from "firebase/auth";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor() { }
+  constructor() {
+  }
 
-  signInUser(email: string, password: string){
-    return new Promise (
+  signInUser(email: string, password: string) {
+    return new Promise(
       (resolve, reject) => {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password).then(
@@ -25,7 +26,7 @@ export class AuthenticationService {
     );
   }
 
-  signOutUser(){
+  signOutUser() {
     const auth = getAuth();
     signOut(auth);
   }
