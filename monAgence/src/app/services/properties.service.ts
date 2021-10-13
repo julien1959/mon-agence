@@ -1,47 +1,43 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
 import {Property} from '../interfaces/property';
-import {getDatabase, ref, set} from "firebase/database";
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+
+const baseUrl = 'http://localhost:8080/api/properties';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropertiesService {
 
-  properties: Property[] = [];
+  private _refreshUsers$ = new Subject<void>();
 
-  propertiesSubject = new Subject<Property[]>();
-
-  constructor() {
+  get refreshUsers$(){
+    return this._refreshUsers$;
   }
 
-  emitProperties() {
-    this.propertiesSubject.next(this.properties);
+  constructor(
+    private http: HttpClient
+  ) { }
+
+
+  getAllProperties(): Observable<Property[]>{
+    return this.http.get<Property[]>(baseUrl);
   }
 
-  writeUserData() {
-    const db = getDatabase();
-    set(ref(db, 'propertise/'), this.properties);
-    //set(ref(db, 'properties/'), this.properties);
+  getById(id: number):Observable<Property>{
+    return this.http.get<Property>(`${baseUrl}/${id}`);
   }
 
-  getProperties() {
-
+  create(property: Property): Observable<Property>{
+    return this.http.post<Property>(baseUrl, property);
   }
 
-  createProperty(property: Property) {
-    this.properties.push(property);
-    this.writeUserData();
-    this.emitProperties();
+  delete(id: number): Observable<any>{
+    return this.http.delete(`${baseUrl}/${id}`);
   }
 
-  deleteProperty(index) {
-    this.properties.splice(index, 1);
-    this.emitProperties();
-  }
-
-  updateProperty(property: Property, index) {
-    this.properties[index] = property;
-    this.emitProperties();
+  update(id: number, property: Property): Observable<Property>{
+    return this.http.put<Property>(`${baseUrl}/${id}`, property);
   }
 }

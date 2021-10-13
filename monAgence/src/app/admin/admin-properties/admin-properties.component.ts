@@ -30,12 +30,11 @@ export class AdminPropertiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.initPropertiesForm();
-    this.propertiesService.propertiesSubject.subscribe(
+    //this.propertiesService.propertiesSubject.subscribe(
       (data: Property[]) => {
         this.properties = data;
       }
-    );
-    this.propertiesService.emitProperties();
+    /* ) */;
   }
 
   initPropertiesForm() {
@@ -54,9 +53,9 @@ export class AdminPropertiesComponent implements OnInit {
   onSubmitPropertiesForm() {
     const newProperty: Property = this.propertiesForm.value;
     if (this.editMode) {
-      this.propertiesService.updateProperty(newProperty, this.indexToUpdate);
+      this.propertiesService.update(this.indexToUpdate, newProperty);
     } else {
-      this.propertiesService.createProperty(newProperty);
+      this.propertiesService.create(newProperty);
     }
     //$('#propertiesFormModal').modal('hide'); // Pour fermer la modal apres enregistrement du formulaire(avec jquery)
     //const truck_modal = document.querySelector('#propertiesFormModal');
@@ -76,7 +75,7 @@ export class AdminPropertiesComponent implements OnInit {
   }
 
   onConfirmDeleteProperty() {
-    this.propertiesService.deleteProperty(this.indexToRemove);
+    this.propertiesService.delete(this.indexToRemove);
     const modal = Modal.getInstance('#deletePropertyModal'); // Fermer la modal sans jquery
     modal.hide();
   }
@@ -96,5 +95,7 @@ export class AdminPropertiesComponent implements OnInit {
     const index = this.properties.findIndex(e => e === property);
     this.indexToUpdate = index;
   }
+
+  onUploadFile(){}
 
 }

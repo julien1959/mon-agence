@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
+import { Property } from '../interfaces/property';
 import {PropertiesService} from '../services/properties.service';
 
 @Component({
@@ -18,12 +19,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.propertiesSubscription = this.propertiesService.propertiesSubject.subscribe(
-      (data: any[]) => {
-        this.properties = data;
+    this.getAllUsers();
+  }
+
+  getAllUsers(){
+    this.propertiesService.getAllProperties().subscribe(
+      (data: Property[]) => {
+        this.properties = data ;
+      },
+      error => {
+        console.log(error);
       }
-    );
-    this.propertiesService.emitProperties();
+    )
   }
 
   getSoldValue(index) {
